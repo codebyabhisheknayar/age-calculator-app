@@ -1,0 +1,18 @@
+.body {
+  display: block;
+  padding: 1em;
+  background-color: white;
+  border-radius: 0.5em;
+  width: 300px;
+  border-bottom-right-radius: 4em;
+  align-items: center;
+  height: 400px;
+  margin: 3em auto;
+}
+
+@media (min-width: 1280px) {
+  .body {
+    width: 680px;
+    height: 600px;
+  }
+}
