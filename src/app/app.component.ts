@@ -15,9 +15,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class AppComponent implements OnInit {
   ageForm: FormGroup;
   age: number = 0;
-  ageYears: number = 0;
-  ageMonths: number = 0;
-  ageDays: number = 0;
+  ageYears: any = '--';
+  ageMonths: any = '--';
+  ageDays: any = '--';
   maxDays: number = 31;
 
   constructor(private fb: FormBuilder) {
@@ -30,6 +30,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.ageForm.get('month')?.valueChanges.subscribe(() => {
+      this.setDaysValidators();
+    });
+    this.ageForm.get('year')?.valueChanges.subscribe(() => {
+      this.setDaysValidators();
+    });
+    this.ageForm.get('day')?.valueChanges.subscribe(() => {
       this.setDaysValidators();
     });
   }
@@ -77,15 +83,39 @@ export class AppComponent implements OnInit {
     return null;
   }
 
-  submitForm(): void {
+  submitForm() {   
+    let date = new Date();
+    let currentMonth = date.getMonth() + 1;
+    let enteredDay = this.ageForm.get('day')?.value;
+    let enteredMonth = this.ageForm.get('month')?.value;
+    let enteredYear = this.ageForm.get('year')?.value;
+    let currentYear = date.getFullYear();
+    let currentDay = date.getDate(); 
+    // Object.values(this.ageForm.controls).forEach(control => {
+    //   control.markAsTouched();
+    // });  
+    if (this.ageForm.invalid) {
+      return;
+    }  
     if (this.ageForm.valid) {
-      let date = new Date();
-      this.ageYears = date.getFullYear() - this.ageForm.get('year')?.value;
-      this.ageMonths = date.getMonth() + 1 - this.ageForm.get('month')?.value;
-      this.ageDays = Math.abs(date.getDate() - this.ageForm.get('day')?.value);
-    } else {
-      this.ageForm.markAllAsTouched();
+      if (enteredMonth > currentMonth) {
+        currentMonth = currentMonth + 12;
+        currentYear = currentYear - 1;
+      }
+      if (enteredDay > date.getDate()) {
+        let monthDays = this.getDaysInMonth(currentMonth);
+        date.setDate(date.getDate() + monthDays);
+        date.setMonth(date.getMonth() - 1);
+      }
     }
+    this.ageDays = Math.abs(enteredDay - currentDay);
+    this.ageMonths = Math.abs(enteredMonth - currentMonth);
+    this.ageYears = Math.abs(enteredYear - currentYear);
+  }
+
+  getDaysInMonth(month: number) {
+    let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return monthDays[month - 1];
   }
 
 }
