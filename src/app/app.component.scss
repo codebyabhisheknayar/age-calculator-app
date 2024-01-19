@@ -1,18 +1,61 @@
-.body {
-  display: block;
+
+
+.container-wrap {
   padding: 1em;
-  background-color: white;
+  background-color: rgb(229 228 229);
   border-radius: 0.5em;
-  width: 300px;
-  border-bottom-right-radius: 4em;
+  width: 500px;
   align-items: center;
-  height: 400px;
   margin: 3em auto;
+  border-bottom-right-radius:70px
 }
 
-@media (min-width: 1280px) {
-  .body {
-    width: 680px;
-    height: 600px;
+.container-time-item-properties {
+  color: hsl(259, 100%, 65%);
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.age-class{
+  font-size: 45px;
+  font-weight: bold;
+  color: #000;
+}
+
+.submit-icon {
+  position: relative;
+  margin: 2em 0 2em 0;
+}
+
+.img-submit {
+  position: absolute;
+  background-color:#000;
+  top: 0;
+  bottom: 0;  
+  right: 1px;
+  width: 4em;
+  height: 4em;
+  margin: auto;
+  border-radius: 100%;
+  padding: 0.3em;
+}
+
+.error {
+  font-size: 10px;
+}
+
+.form-control {
+  &.calcuator-input {
+    padding: 10px;
+    border: 1px solid #a5a5a5;
+    font-weight: bold;
+    color: #000;
   }
+}
+.calcuator-label{
+  font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2f2e2e;
+    margin-bottom: 10px;
 }

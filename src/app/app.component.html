@@ -1,60 +1,67 @@
-<div class="body">
-  <form [formGroup]="ageForm">
-    <div class="col-md-12">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="input-group">
-            <input type="text" class="form-control" formControlName="day" placeholder="DD">
+<div class="container-wrap">
+  <div class="body">
+    <form [formGroup]="ageForm">
+      <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-3 container-input-items">
+              <div class="input-items">
+                <label class="calcuator-label">Day</label>
+                <input type="number" class="form-control calcuator-input" formControlName="day" placeholder="DD">
+              </div>
+              <div *ngIf="ageForm.get('day')?.hasError('required') && ageForm.get('day')?.touched" class="text-danger error">
+                Day is required
+              </div>
+              <div
+                *ngIf="(ageForm.get('day')?.hasError('max') || ageForm.get('day')?.hasError('min'))  && ageForm.get('day')?.touched && !ageForm.get('day')?.hasError('required')"
+                class="text-danger error">
+                Enter a valid day
+              </div>
+            </div>
+            <div class="col-md-3 container-input-items">
+              <div class="input-items">
+                <label  class="calcuator-label">Month</label>
+                <input class="form-control  calcuator-input" type="number" formControlName="month" placeholder="MM">
+              </div>
+              <div *ngIf="ageForm.get('month')?.hasError('required') && ageForm.get('month')?.touched"
+                class="text-danger error">
+                Month is required
+              </div>
+              <div class="error text-danger"
+                *ngIf="(ageForm.get('month')?.hasError('max') || ageForm.get('month')?.hasError('min'))  && ageForm.get('month')?.touched && !ageForm.get('month')?.hasError('required')">
+                Enter a valid month
+              </div>
+            </div>
+            <div class="col-md-3 container-input-items">
+              <div class="input-items">
+                <label  class="calcuator-label">Year</label>
+                <input class="form-control  calcuator-input" type="number" formControlName="year" placeholder="YYYY">
+              </div>
+              <div *ngIf="ageForm.get('year')?.hasError('required') && ageForm.get('year')?.touched" class="text-danger error">
+                Year is required
+              </div>
+            </div>
+            <div *ngIf="ageForm.hasError('futureDate')" class="text-danger error">
+              Date cannot be in the future
+            </div>
           </div>
-          <div *ngIf="ageForm.get('day')?.hasError('required') && ageForm.get('day')?.touched" class="text-danger">
-            Day is required
+          <div class="submit-icon">
+            <hr />
+            <button type="submit" class="img-submit" (click)="submitForm()">
+              <img src="./assets/images/icon-arrow.svg" alt="arrow button" />
+            </button>
           </div>
-          <div
-            *ngIf="(ageForm.get('day')?.hasError('max') || ageForm.get('day')?.hasError('min'))  && ageForm.get('day')?.touched && !ageForm.get('day')?.hasError('required')" class="text-danger">
-            Enter a valid day
+          <div class="container-time">
+            <div class="container-time-item">
+              <span class="container-time-item-properties">{{ ageYears }}</span> <span class="age-class">Years</span> 
+            </div>
+            <div class="container-time-item">
+              <span class="container-time-item-properties">{{ ageMonths }}</span><span class="age-class">Months</span> 
+            </div>
+            <div class="container-time-item">
+              <span class="container-time-item-properties">{{ ageDays }}</span><span class="age-class">Days</span> 
+            </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="input-group">
-            <input class="form-control" formControlName="month" placeholder="MM">
-          </div>
-          <div *ngIf="ageForm.get('month')?.hasError('required') && ageForm.get('month')?.touched" class="text-danger">
-            Month is required
-          </div>
-          <div
-            *ngIf="(ageForm.get('month')?.hasError('max') || ageForm.get('month')?.hasError('min'))  && ageForm.get('month')?.touched && !ageForm.get('month')?.hasError('required')">
-            Enter a valid month
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="input-group">
-            <input class="form-control" formControlName="year" placeholder="YYYY">
-          </div>
-          <div *ngIf="ageForm.get('year')?.hasError('required') && ageForm.get('year')?.touched" class="text-danger">
-            Year is required
-          </div>
-        </div>
-        <div *ngIf="ageForm.hasError('futureDate')" class="text-danger">
-          Date cannot be in the future
-        </div>
       </div>
-      <div class="container-icon">
-        <hr />
-        <button class="container-icon-image" type="submit" (click)="submitForm()">
-          <img src="./src/assets/images/arrow-down-solid.svg" alt="arrow button" />
-        </button>
-      </div>
-      <div class="container-time">
-        <div class="container-time-item">
-          <span class="container-time-item-properties">{{ ageYears }}</span> Years
-        </div>
-        <div class="container-time-item">
-          <span class="container-time-item-properties">{{ ageMonths }}</span> months
-        </div>
-        <div class="container-time-item">
-          <span class="container-time-item-properties">{{ ageDays }}</span> Days
-        </div>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
